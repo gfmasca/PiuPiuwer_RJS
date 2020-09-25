@@ -1,10 +1,10 @@
 import React from "react";
 
 import LogoImg from "../../assets/images/LogotipoEscuro.svg";
+import InputBlock from "../../components/InputBlock/InputBlock";
 
 import {
     DivContainer,
-    InputBlock,
     Button,
     ButtonContainer
 } from "./styles";
@@ -17,15 +17,10 @@ const Login: React.FC = () => {
                 <form id="login-form">
                     <fieldset> Entrar no PiuPiuwer</fieldset>
             
-                    <InputBlock>                       
-                        <label htmlFor="username"> PiuName ou Email</label>
-                        <input placeholder="Ex: @mandioca123" type="text" id="username"/>
-                    </InputBlock>
-                    <InputBlock>
-                        <label htmlFor="password"> Senha</label>
-                        <input  type="password" id="password"/>
-                    </InputBlock>
+                    <InputBlock title="PiuName ou Email" id="username" placeholder="Ex: @mandioca123" type="text" login={true}/>
 
+                    <InputBlock title=" Senha" id="password" type="password" login={true}/>
+                    
                     <ButtonContainer>
                         <Button type="button"> Não tenho uma conta</Button>
                         <Button type="submit"> Entrar</Button>
