@@ -9,11 +9,12 @@ interface InputBlockProps extends InputHTMLAttributes<HTMLInputElement>{
     id: string;
     login?: boolean;
     feed?: boolean;
+    signIn?: boolean;
 }
 
-const InputBlock: React.FC<InputBlockProps> = ({ title, id, login=false, feed=false, ...rest}) => {
+const InputBlock: React.FC<InputBlockProps> = ({ title, id, login=false, feed=false, signIn=false, ...rest}) => {
     return (
-        <InputBlockComponent login={login} feed={feed} >                       
+        <InputBlockComponent login={login} feed={feed} signIn={signIn} >                       
             <label htmlFor={id}> {title}</label>
             <input id={id} {...rest}/>
         </InputBlockComponent>
