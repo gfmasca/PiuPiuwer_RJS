@@ -1,6 +1,6 @@
-:root {
+/* :root {
     font-size: 60%;
-}
+} */
 
 * {
     margin: 0;
@@ -12,9 +12,9 @@
 html, body, #root {
         height: 100vh;
 }
-
+/* 
 @media (min-width: 700px) {
     :root {
         font-size: 62.5%;
     }
-}
+} */
