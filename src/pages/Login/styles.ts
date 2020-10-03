@@ -10,6 +10,7 @@ export const DivContainer = styled.div`
         height: 90vh;
         background: #212529;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
     }
@@ -27,10 +28,18 @@ export const DivContainer = styled.div`
         border-radius: 2rem;
     }
 
+    div#form-container p {
+        color: red;
+        font-weight: 400;
+        margin-top: 10px;
+        letter-spacing: 2px;
+    }
+
     div#form-container form fieldset{
         border: none;
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         border-bottom: solid #343A40 1px;
+        margin-bottom: 1rem;
     }
 
     div#logo-container {
@@ -74,13 +83,40 @@ export const DivContainer = styled.div`
 export const ButtonContainer = styled.div`
     height: 10rem;
     display: flex;
+    align-items: center;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    margin-top: 1rem;
+    a {
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1rem 0;
+        width: 20rem;
+        height: 4rem;
+        border-radius: 3rem;
+        border: none;
+        background: #343A40;
+        color: #E9ECEF;
+        font-size: 1.2rem;
+        outline: none;
+        align-self: flex-end;
+        cursor: pointer;
+        transition: background-color .2s;
+    }
+
+    a:hover {
+        background: #495057;
+    }
 
     @media (min-width: 800px) {
         flex-direction: row;
         justify-content: flex-end;
         height: 5rem;
+        a {
+            margin: 0 2rem 0 0;
+        }
     }
     
     
@@ -93,9 +129,8 @@ export const Button = styled.button`
     border: none;
     background: #343A40;
     color: #E9ECEF;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     outline: none;
-    align-self: flex-end;
     cursor: pointer;
     transition: background-color .2s;
     &:hover {
