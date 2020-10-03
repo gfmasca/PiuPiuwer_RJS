@@ -1,5 +1,13 @@
 import styled, { css } from "styled-components";
 
+interface ButtonProps {
+    isDisabled: boolean;
+}
+
+interface NewPiuInputProps {
+    isDisabled: boolean;
+}
+
 export const Container = styled.div`
     display: flex;
     min-width: 100vh;
@@ -44,7 +52,7 @@ export const Menu = styled.nav`
         height: 9%;
         border-radius: 15px;
         background: #495057;
-        font-size: 1em;
+        font-size: 1.1em;
         transition: background  .5s, border .5s, letter-spacing .5s;
         border: 1px solid transparent;
     }
@@ -70,7 +78,6 @@ export const Menu = styled.nav`
 export const Aligner = styled.div`
     width: 80vw;
     margin-left: 20vw;
-    height: 100vh;
     background: #212529;
     color: #F8F9FA;
 `
@@ -78,7 +85,7 @@ export const Aligner = styled.div`
 export const Header = styled.header`
     display: flex;
     align-items: center;
-    height: 13%;
+    height: 115px;
     border-bottom: 2px solid #CED4DA;
     padding: 1% 5%;
 `
@@ -147,8 +154,103 @@ export const FormNovoPiu = styled.form`
     flex-direction: column;
     height: 100%;
     margin: 15px 0 15px 30px;
+
+    p#fechar-aba {
+        position: absolute;
+        right: 10px;
+        top: 2px;
+        cursor: pointer;
+    }
+
+    p#fechar-aba:hover {
+        color: #ADB5BD;
+        transition: .2s;
+    }
+`
+
+export const LabelContainer = styled.div`
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+`
+
+export const TextButtonContainer = styled.div`
+    display: flex;
+    height: 100%;
+    align-items: flex-end;
+    
+`
+
+export const NewPiuInput = styled.textarea<NewPiuInputProps>`
+/* BOX STYLE */
+    width: 300px;
+    height: 100%;
+    margin: 0 10px;
+    background: #6C757D;
+    border-radius: 20px;
+    padding: 20px;
+    border: 2px solid transparent;
+    resize: none;
+    outline: none;
+    /* FONT STYLE */
+    font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI',  Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    color: #F8F9FA;
+
+    
+
+    ${ props => props.isDisabled ?
+        css`
+            border: 2px solid #e63946;
+        ` : 
+        css`
+            &:focus {
+                border: 2px solid #ADB5BD;
+                transition: .1s;    
+            }
+        `
+    }
+`
+
+export const Button = styled.button<ButtonProps>`
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    background: #343A40;
+    color: #ADB5BD;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: border .2s, background-color .2s;
+
+    ${ props => props.isDisabled &&
+        css`
+            background: #6C757D;
+            border: 1px solid #e63946;
+        `
+    }
+`
+
+export const CounterContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p#contador {
+        margin-right: 2px;
+    }
+
+    p#tamanho-maximo-caracteres {
+        margin-right: 10px;
+    }
+
 `
 
 export const FeedDiv = styled.main`
-
+    ul {
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+    }   
 `
