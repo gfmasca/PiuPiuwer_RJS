@@ -1,13 +1,12 @@
 import React, { FormEvent, useCallback, useEffect, useState } from "react";
-
 import LogoImg from "../../assets/images/LogotipoEscuro.svg";
+import ButtonDefault from "../../components/ButtonDefault";
 import DefaultLink from "../../components/DefaultLink";
 import InputBlock from "../../components/InputBlock";
 import { useAuth } from "../../hooks/useAuth";
 
 import {
     DivContainer,
-    Button,
     ButtonContainer
 } from "./styles";
 
@@ -16,7 +15,7 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const { login, error } = useAuth();
+    const { login, error, loading } = useAuth();
 
     const handleLogin = useCallback((e: FormEvent) => {
         e.preventDefault();
@@ -42,7 +41,7 @@ const Login: React.FC = () => {
                     
                     <ButtonContainer>
                         <DefaultLink label="Não tenho uma conta" destiny="/signin" />                        
-                        <Button type="submit" > Entrar</Button>
+                        <ButtonDefault type="submit" label="Entrar" loading={loading} />
                     </ButtonContainer>
                 </form>
                 <p>{ errorMessage }</p>

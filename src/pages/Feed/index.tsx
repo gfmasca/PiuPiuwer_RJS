@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Piu from "../../components/Piu";
 import api from "../../services/api";
 import { useAuth, User } from "../../hooks/useAuth";
+import { BounceLoader } from "react-spinners";
 
 import LogoImg from "../../assets/images/logotipo.svg";
 import PenImg from "../../assets/images/pen.svg";
@@ -22,7 +23,8 @@ import {
     TextButtonContainer,
     CounterContainer,
     Button,
-    NewPiuInput
+    NewPiuInput,
+    LoaderStyle
 } from "./styles";
 
 
@@ -37,7 +39,7 @@ export interface infoPiu {
 }
 
 const Feed: React.FC = () => {
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
     
     const [pius, setPius] = useState<Array<infoPiu>>([] as Array<infoPiu>);
     const [piuLetterCounter, setPiuLetterCounter] = useState(0);
@@ -77,28 +79,26 @@ const Feed: React.FC = () => {
         setVisibilityPiuBox(!visibilityPiuBox);
     }, [visibilityPiuBox, setVisibilityPiuBox]);
 
-    // const delay = useCallback((delay: number) => {
-    //     return new Promise( res => setTimeout(res, delay) );
-    // },[])
-
     useEffect(() => {
         setButtonState(piuLetterCounter === 0 || piuLetterCounter >= 140);
     }, [piuLetterCounter])
 
     // carregando os pius da api
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {   
         async function carregarPius() {
-            const response = await api.get('/pius/');
-            
-            setPius(response.data);
+            setLoading(true);
+            try{
+                const response = await api.get('/pius/');
+                
+                setPius(response.data);
+                setLoading(false);
+            }
+            catch {
+                alert("Erro no carregamento dos pius, tente novamente mais tarde.");
+            }
         }
-        // async function recarregaContinuamente() {
-        //     while (true) {
-        //         await carregarPius();
-        //         await delay(1000);
-        //     }
-        // }
-        // recarregaContinuamente();
         carregarPius();
     }, []);
 
@@ -127,6 +127,7 @@ const Feed: React.FC = () => {
                         type="text" 
                         feed={true}
                     />
+                    <BounceLoader css={LoaderStyle.toString()} color="#CED4DA" loading={ loading } />
                 </Header>
 
                 <CampoNovoPiu visible={visibilityPiuBox}>
@@ -157,12 +158,6 @@ const Feed: React.FC = () => {
                 <FeedDiv>
                     <ul>
                         { pius.map( piu => {
-                            console.log({
-                                user: user,
-                                id: piu.id,
-                                likedPiusIds,
-                                isLiked: likedPiusIds.includes(piu.id),
-                            });
                             return (
                                 <Piu 
                                     pius={ pius }

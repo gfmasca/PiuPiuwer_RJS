@@ -74,10 +74,10 @@ const Piu: React.FC<PiuProps> = ({ id ,usuario, likers, texto, searchPiuwers, pi
         setPius( piusAtualizados );
 
         await api.post('pius/dar-like/', {
-            usuario: usuario.id,
+            usuario: user.id,
             piu: id,
         } );
-    }, [ usuario, id, pius, setPius, isLiked, user ]);
+    }, [ id, pius, setPius, isLiked, user ]);
 
     return (
         <PiuContainer piuVisibility={ piuVisibility } >

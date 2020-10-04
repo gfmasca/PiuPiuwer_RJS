@@ -88,6 +88,7 @@ export const Header = styled.header`
     height: 115px;
     border-bottom: 2px solid #CED4DA;
     padding: 1% 5%;
+    position: relative;
 `
 
 export const NovoPiu = styled.div`
@@ -253,4 +254,10 @@ export const FeedDiv = styled.main`
         flex-direction: column;
         list-style-type: none;
     }   
+    min-height: 100px;
+`
+
+export const LoaderStyle = css`
+    position: absolute;
+    right: 50px;
 `

@@ -29,6 +29,7 @@ interface AuthContextData {
     token: string;
     logout(): void;
     error: boolean;
+    loading: boolean;
 }
 
 
@@ -39,6 +40,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     const [data, setData] = useState<AuthState>({} as AuthState);
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         async function carregarDadosDoUsuario() {
@@ -55,6 +57,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     }, []);
 
     const login = useCallback( async (cred: UserAuth) => {
+        setLoading(true);
+
         try {
             const response = await api.post('/login/', cred);
             const token = response.data.token;
@@ -64,16 +68,16 @@ export const AuthProvider: React.FC = ({ children }) => {
                 const user = userResponse.data[0];
     
                 localStorage.setItem('@PiuPiuwer:user', JSON.stringify(user));
-                console.log(user);
                 localStorage.setItem('@PiuPiuwer:token', token);
     
                 setData({token: token, user: user});
             }
-            // NAO SEI SE VAI PRECISAR DISSO 
+            setLoading(false);
         }
-
+        
         catch {
             setError(true);
+            setLoading(false);
         }
         
     }, []);
@@ -81,10 +85,11 @@ export const AuthProvider: React.FC = ({ children }) => {
     const logout = useCallback(() => {
         localStorage.removeItem('@PiuPiuwer:user');
         localStorage.removeItem('@PiuPiuwer:token');
+        setData({} as AuthState)
     }, [])
 
     return (
-        <AuthContext.Provider value={{ user: data.user, login, token: data.token, logout, error: error}}>
+        <AuthContext.Provider value={{ user: data.user, login, token: data.token, logout, error: error, loading: loading}}>
             {children}
         </AuthContext.Provider>
     )
