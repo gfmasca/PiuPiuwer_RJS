@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch } from "react-router-dom";
 import Route from "./Route";
+import Redirection from "./redirect"
 
 import Login from "../pages/Login/index";
 import Feed from "../pages/Feed/index";
@@ -14,6 +15,7 @@ const Routes: React.FC = () => {
             <Route path="/confirmation" component={Confirmation} isPrivate />
             <Route path="/feed" component={Feed} isPrivate />
             <Route path="/signin" component={SignIn} />
+            <Route component={Redirection} />
         </Switch>
     );
 }

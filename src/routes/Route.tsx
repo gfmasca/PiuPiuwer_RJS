@@ -8,7 +8,7 @@ interface RouteProps extends ReactRouteProps {
     component: React.ComponentType;
 }
 
-const Routes: React.FC<RouteProps> = ({ isPrivate = false, component: Component, ...rest }) => {
+const Route: React.FC<RouteProps> = ({ isPrivate = false, component: Component, ...rest }) => {
     const { user } = useAuth();
 
     return (
@@ -33,4 +33,4 @@ const Routes: React.FC<RouteProps> = ({ isPrivate = false, component: Component,
     );
 }
 
-export default Routes 
+export default Route
