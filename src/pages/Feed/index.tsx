@@ -127,7 +127,6 @@ const Feed: React.FC = () => {
                         type="text" 
                         feed={true}
                     />
-                    <BounceLoader css={LoaderStyle.toString()} color="#CED4DA" loading={ loading } />
                 </Header>
 
                 <CampoNovoPiu visible={visibilityPiuBox}>
@@ -157,6 +156,7 @@ const Feed: React.FC = () => {
                 </CampoNovoPiu>
                 <FeedDiv>
                     <ul>
+                        <BounceLoader css={LoaderStyle.toString()} color="#CED4DA" loading={ loading } />
                         { pius.map( piu => {
                             return (
                                 <Piu 

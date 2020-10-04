@@ -254,10 +254,12 @@ export const FeedDiv = styled.main`
         flex-direction: column;
         list-style-type: none;
     }   
-    min-height: 100px;
+    min-height: 300px;
+    position: relative;
 `
 
 export const LoaderStyle = css`
     position: absolute;
-    right: 50px;
+    right: 50%;
+    top: 50%;
 `
