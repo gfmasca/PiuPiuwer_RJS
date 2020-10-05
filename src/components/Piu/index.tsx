@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import api from "../../services/api";
-import { infoPiu } from "../../pages/Feed/index";
+import { InfoPiu } from "../../pages/Feed/index";
 import LikeButton from "../../assets/images/like.svg";
 import FilledLikeButton from "../../assets/images/FilledLike.svg";
 import DeleteButton from "../../assets/images/x-mark.svg";
@@ -9,7 +9,8 @@ import {
     PiuContainer,
     ProfilePictureContainer,
     Actions,
-    DeleteButtonSpan
+    DeleteButtonSpan,
+    UsernameTimeContainer
 } from "./styles";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -18,16 +19,16 @@ interface likeStateType {
     touched: boolean;
 }
 
-interface PiuProps extends infoPiu {
+interface PiuProps extends InfoPiu {
     isLiked: boolean;
     searchPiuwers: string;
-    pius: Array<infoPiu>;
-    setPius(novosPius: Array<infoPiu>): void;
+    pius: Array<InfoPiu>;
+    setPius(novosPius: Array<InfoPiu>): void;
 }
 
 
 
-const Piu: React.FC<PiuProps> = ({ id ,usuario, likers, texto, searchPiuwers, pius, setPius, isLiked }) => {   
+const Piu: React.FC<PiuProps> = ({ id ,usuario, likers, texto, searchPiuwers, pius, setPius, isLiked, horario }) => {   
 
     const { user } = useAuth();
     const [piuVisibility, setPiuVisibility] = useState(true);
@@ -37,6 +38,51 @@ const Piu: React.FC<PiuProps> = ({ id ,usuario, likers, texto, searchPiuwers, pi
         setPiuVisibility(expressao.test(usuario.username));
     }, [setPiuVisibility, searchPiuwers, usuario.username]);
 
+    const relativeTime = useMemo<string>(() => {
+        const msPerMinute = 60 * 1000;
+        const msPerHour = msPerMinute * 60;
+        const msPerDay = msPerHour * 24;
+        const msPerMonth = msPerDay * 30;
+        const msPerYear = msPerDay * 365;
+
+        const piuTime = Date.parse(horario);
+        const currentTime = Date.parse(Date());
+
+        const elapsed = currentTime - piuTime;
+    
+        if (elapsed < msPerMinute) {
+             return Math.round(elapsed/1000) + ' s';
+        }
+    
+        else if (elapsed < msPerHour) {
+             return Math.round(elapsed/msPerMinute) + ' min';
+        }
+    
+        else if (elapsed < msPerDay ) {
+             return Math.round(elapsed/msPerHour ) + ' h';
+        }
+    
+        else if (elapsed < msPerMonth) {
+            return Math.round(elapsed/msPerDay) + ' d';
+        }
+    
+        else if (elapsed < msPerYear) {
+            
+            return Math.round(elapsed/msPerMonth) + (
+                Math.round(elapsed/msPerMonth) !== 1
+                    ? ' meses'
+                    : ' mês'
+            );
+        }
+    
+        else {
+            return Math.round(elapsed/msPerYear) + (
+                Math.round(elapsed/msPerYear) !== 1
+                    ? ' anos'
+                    : ' ano'
+            );
+        }
+    }, [horario])
 
     const handleDelete = useCallback( async () => {
         
@@ -84,7 +130,10 @@ const Piu: React.FC<PiuProps> = ({ id ,usuario, likers, texto, searchPiuwers, pi
             <ProfilePictureContainer>
                 <img src={ usuario.foto } alt="foto de perfil" />
                 <div>
-                    <h3 className="username">{ usuario.username }</h3>
+                    <UsernameTimeContainer>
+                        <h3 className="username">{ usuario.username }</h3>
+                        <p>{ relativeTime }</p>
+                    </UsernameTimeContainer>
                     <p>{ texto }</p>
                 </div>
             </ProfilePictureContainer>

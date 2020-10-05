@@ -29,19 +29,19 @@ import {
 
 
 
-export interface infoPiu {
+export interface InfoPiu {
     id: number;
     usuario: User;
     likers: Array<User>;
     favoritado_por: Array<User>;
     texto: string;
-    horario?: string;
+    horario: string;
 }
 
 const Feed: React.FC = () => {
     const { user } = useAuth();
     
-    const [pius, setPius] = useState<Array<infoPiu>>([] as Array<infoPiu>);
+    const [pius, setPius] = useState<Array<InfoPiu>>([] as Array<InfoPiu>);
     const [piuLetterCounter, setPiuLetterCounter] = useState(0);
     const [piuContent, setPiuContent] = useState('');
     const [buttonState, setButtonState] = useState(false);
@@ -169,6 +169,7 @@ const Feed: React.FC = () => {
                                     favoritado_por={piu.favoritado_por} 
                                     usuario={piu.usuario} 
                                     texto={piu.texto} 
+                                    horario={piu.horario}
                                 />
                             );
                         } ) }

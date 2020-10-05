@@ -34,19 +34,19 @@ export const ProfilePictureContainer = styled.div`
         object-fit: cover;
     }
 
-    div {
+    > div {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        width: 450px;
+        width: 100%;
     }
 
-    h3 {
-        margin-bottom: 16px;
-        font-weight: 650;
-        font-size: 14px;
+    > div > p {
+        width: 100%;
     }
+
+   
 `
 
 export const Actions = styled.div`
@@ -101,4 +101,21 @@ export const DeleteButtonSpan = styled.span<DeleteButtonSpanProps>`
             display: none;
         `
     }
+`
+
+export const UsernameTimeContainer = styled.div`
+    margin-bottom: 16px;
+    h3 {
+        font-weight: 650;
+        font-size: 14px;
+    }
+    p {
+        font-size: 12px;
+        color: grey;
+        margin-left: 17px;
+    }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 `
